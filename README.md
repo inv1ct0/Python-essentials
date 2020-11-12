@@ -1,4 +1,4 @@
-    Python-essentials
+Python-essentials
 
 Урок 1.
 
