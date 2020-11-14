@@ -4,19 +4,29 @@ import random
 # EASY
 # Задача-1:
 a = ["яблоко", "банан", "киви", "арбуз"]
-print(a)
-for val in range(len(a)):
-    print("{}. {}".format(val + 1, a[val]))
+
+# for val in range(len(a)):
+#     print("{}. {}".format(val + 1, a[val]))
+
+right_offset = len(max(a, key=len))
+for i, letter in enumerate(a, start=1):
+    print("{}. {}".format(i, letter.rjust(right_offset)))
 
 # EASY
 # Задача-2:
 a = [1, 3, 5, 7, 9, 11]
 b = [3, 7, 11]
-c = []
-for val1 in a:
-    if val1 not in b:
-        c.append(val1)
-print(c)
+
+# c = []
+# for val1 in a:
+#     if val1 not in b:
+#         c.append(val1)
+# print(c)
+
+for b_item in b:
+    while b_item in a:
+        a.remove(b_item)
+print(a)
 
 # EASY
 # Задача-3:
@@ -64,7 +74,7 @@ print(f"Дата: {days.get(date_list[0])} {months.get(date_list[1])} {date_list
 # Задача-3:
 numbers = []
 n = int(input("Введите число элементов списка: "))
-for i in range(n):
+for _ in range(n):
     numbers.append(random.randint(-100, 100))
 print(numbers)
 
