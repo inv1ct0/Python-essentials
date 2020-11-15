@@ -7,29 +7,20 @@ print((lambda firstname, age, city: f'{firstname}, {age} год(а), прожи�
 names = ['Alex', 'Bob', 'Mike', 'John', 'Steve', 'Jacob']
 salaries = [100000, 12100, 20000, 900000, 15000, 160000]
 result = dict(zip(names, salaries))
-with open('salary.txt', 'w') as f:
-    for key, value in result.items():
-        f.write(f'{key} - {value}\n')
+MAX_SALARY = 500000
+TAX_PERCENT = 13
 
-with open('salary.txt') as f:
-    data = f.read()
-    data_list = data.split()
-    n = []
-    s = []
-    for value in data_list:
-        if value.isnumeric():
-            s.append(value)
-        elif value.isalpha():
-            n.append(value)
-    for value in range(len(s)):
-        clean_salary = round(float(s[value]) * 0.83, 2)
-        s[value] = str(clean_salary)
-    clean_result = dict(zip(n, s))
-    for key, value in clean_result.items():
-        if float(value) < 500000:
-            print(f'{key.upper()} - {value}')
-        else:
-            print(f'{key.upper()} - ******')
+with open('salary.txt', 'w+', encoding='UTF-8') as f:
+    for key, value in result.items():
+        if value <= MAX_SALARY:
+            f.write(f'{key} - {value}\n')
+    f.seek(0)
+
+    for line in f:
+        name, salary = line.split(" - ")
+        tax = int(salary) / 100 * TAX_PERCENT
+        after_tax = int(salary) - int(tax)
+        print(f'{str(name).upper()} получил зарплату в размере: {after_tax}, налог составил: {tax}')
 
 # HARD
 # Задание - 1

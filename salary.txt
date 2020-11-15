@@ -1,6 +1,5 @@
 Alex - 100000
 Bob - 12100
 Mike - 20000
-John - 900000
 Steve - 15000
 Jacob - 160000
