@@ -1,0 +1,4 @@
+name - Bob
+health - 200
+damage - 34
+armor - 1.2

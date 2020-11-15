@@ -1,0 +1,4 @@
+name - Mike
+health - 190
+damage - 27
+armor - 2.4

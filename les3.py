@@ -62,8 +62,13 @@
 
 # HARD
 # Задание - 2
-player = {'name': input('Введите имя игрока: '), 'health': 200, 'damage': 34, 'armor': 1.2}
-enemy = {'name': input('Введите имя противника: '), 'health': 190, 'damage': 27, 'armor': 2.4}
+# player = {'name': input('Введите имя игрока: '), 'health': 200, 'damage': 34, 'armor': 1.2}
+# enemy = {'name': input('Введите имя противника: '), 'health': 190, 'damage': 27, 'armor': 2.4}
+
+def init_fight():
+    player = load_player(input('Введите имя игрока для импорта настроек боя: '))
+    enemy = load_player(input('Введите имя противника для импорта настроек боя: '))
+    attack(player, enemy)
 
 
 def attack(pl, en):
@@ -74,21 +79,58 @@ def attack(pl, en):
     for key, value in en.items():
         print(f'{key} - {value}')
     print('------------')
-    while (en.get('health') > 0) and (pl.get('health') > 0):
-        print(f'{pl.get("name")} наносит урон {damage_calc(pl.get("damage"), en.get("armor"))}')
-        en.update({'health': en.get('health') - damage_calc(pl.get('damage'), en.get("armor"))})
-        print(f'{en.get("name")} наносит урон {damage_calc(en.get("damage"), pl.get("armor"))}')
-        pl.update({'health': pl.get('health') - damage_calc(en.get('damage'), pl.get("armor"))})
+    while (int(en.get('health')) > 0) and (int(pl.get('health')) > 0):
+        print(f'{pl.get("name")} наносит урон {damage_calc(int(pl.get("damage")), float(en.get("armor")))}')
+        en.update({'health': int(en.get('health')) - damage_calc(int(pl.get("damage")), float(en.get("armor")))})
+        print(f'{en.get("name")} наносит урон {damage_calc(int(en.get("damage")), float(pl.get("armor")))}')
+        pl.update({'health': int(pl.get('health')) - damage_calc(int(en.get("damage")), float(pl.get("armor")))})
     if en.get('health') <= 0 and pl.get('health') <= 0:
         print('Ничья!\nИспытайте свои силы еще раз!')
     elif en.get('health') <= 0:
-        print(f'Победил {pl.get("name")}')
+        print(f'Победил {pl.get("name")}, здоровья осталось {pl.get("health")}')
     else:
-        print(f'Победил {en.get("name")}')
+        print(f'Победил {en.get("name")}, здоровья осталось {en.get("health")}')
 
 
 def damage_calc(damage, armor):
     return damage // armor
 
 
-attack(player, enemy)
+# with open(f'{player.get("name")}.txt', 'w') as f:
+#     for k, v in player.items():
+#         f.write(f'{k} - {v}\n')
+#
+# with open(f'{enemy.get("name")}.txt', 'w') as f:
+#     for k, v in enemy.items():
+#         f.write(f'{k} - {v}\n')
+
+def load_player(player_name):
+    with open(f'{player_name}.txt') as f:
+        data = f.read()
+        data_list = list(data.split())
+        key = []
+        val = []
+        for v in range(2, len(data_list), 3):
+            val.append(data_list[v])
+        for k in range(0, len(data_list), 3):
+            key.append(data_list[k])
+        player = dict(zip(key, val))
+    return player
+
+
+def load_enemy(enemy_name):
+    with open(f'{enemy_name}.txt') as f:
+        data = f.read()
+        data_list = list(data.split())
+        key = []
+        val = []
+        for v in range(2, len(data_list), 3):
+            val.append(data_list[v])
+        for k in range(0, len(data_list), 3):
+            key.append(data_list[k])
+        enemy = dict(zip(key, val))
+    return enemy
+
+
+# default player's name - Bob, enemy's name  Mike
+init_fight()
