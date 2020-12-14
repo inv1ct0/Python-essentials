@@ -65,6 +65,3 @@ some_str = '''
 
 pattern_dot = '\.{2,}'
 print(re.search(pattern_dot, some_str))
-
-# HARD
-# Задание:
